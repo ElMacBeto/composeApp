@@ -6,4 +6,8 @@ object Constants {
     const val TABLE_DOG = "table_dog"
     const val DATABASE_NAME = "db_dogs.db"
 
+    enum class ItemType(val value:Int){
+        HOME(0),
+        FAVORITE(1)
+    }
 }

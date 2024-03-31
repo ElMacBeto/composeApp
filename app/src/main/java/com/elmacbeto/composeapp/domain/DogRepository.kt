@@ -1,9 +1,7 @@
 package com.elmacbeto.composeapp.domain
 
-import android.util.Log
 import com.elmacbeto.composeapp.data.datasource.Resource
 import com.elmacbeto.composeapp.data.datasource.local.dao.FavoriteDogDao
-import com.elmacbeto.composeapp.data.datasource.local.entity.FavoriteDogEntity
 import com.elmacbeto.composeapp.data.datasource.remote.DogClient
 import com.elmacbeto.composeapp.data.mapper.DogEntityMapper
 import com.elmacbeto.composeapp.data.mapper.DogResponseMapper
@@ -34,17 +32,18 @@ class DogRepository @Inject constructor(
     }
 
     val favorites: Flow<List<DogModel>> =
-        favoriteDao.getFavorites().map { items -> items.map { DogModel(it.id, it.imgUrl, it.isFavorite) } }
+        favoriteDao.getFavorites()
+            .map { items -> items.map { DogModel(it.id, it.imgUrl, it.isFavorite) } }
 
     suspend fun saveFavorite(dog: DogModel) {
         favoriteDao.insertData(DogEntityMapper().map(dog))
     }
 
-    suspend fun update(dog: DogModel){
+    suspend fun update(dog: DogModel) {
         favoriteDao.updateTask(DogEntityMapper().map(dog))
     }
 
-    suspend fun delete(dog: DogModel){
-        favoriteDao.deleteTask(DogEntityMapper().map(dog))
+    suspend fun delete(dog: DogModel) {
+        favoriteDao.deleteFavorite(DogEntityMapper().map(dog))
     }
 }

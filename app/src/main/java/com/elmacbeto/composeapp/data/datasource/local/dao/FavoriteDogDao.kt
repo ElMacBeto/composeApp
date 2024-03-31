@@ -18,6 +18,6 @@ interface FavoriteDogDao {
     suspend fun updateTask(item: FavoriteDogEntity)
 
     @Delete
-    suspend fun deleteTask(item: FavoriteDogEntity)
+    suspend fun deleteFavorite(item: FavoriteDogEntity)
 
 }

@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.elmacbeto.composeapp.data.model.Routes
 import com.elmacbeto.composeapp.screens.deteailScreen.DetailScreen
+import com.elmacbeto.composeapp.screens.favorites.FavoriteViewModel
 import com.elmacbeto.composeapp.screens.favorites.FavoritesScreen
 import com.elmacbeto.composeapp.screens.home.HomeScreen
 import com.elmacbeto.composeapp.screens.home.HomeViewModel
@@ -22,7 +23,10 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AppNavigation(homeViewModel: HomeViewModel? = null) {
+fun AppNavigation(
+    homeViewModel: HomeViewModel? = null,
+    favoriteViewModel: FavoriteViewModel? = null
+) {
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -33,21 +37,23 @@ fun AppNavigation(homeViewModel: HomeViewModel? = null) {
         },
     ) {
         NavHost(navController = navController, startDestination = Routes.Home.route) {
-            composable(route = Routes.Home.route) {
-                HomeScreen(homeViewModel, navController){
+            composable(
+                route = Routes.Home.route
+            ) {
+                HomeScreen(homeViewModel, navController) {
                     scope.launch {
                         snackbarHostState.showSnackbar(it)
                     }
                 }
             }
             composable(
-                route = Routes.DogDetail.route,
+                route = Routes.Favorites.route,
                 arguments = Routes.DogDetail.navArguments
             ) {
-                FavoritesScreen(navController)
+                FavoritesScreen(favoriteViewModel, navController)
             }
             composable(
-                route = Routes.Favorites.route,
+                route = Routes.DogDetail.route,
                 arguments = Routes.Favorites.navArguments
             ) {
                 DetailScreen(navController)
