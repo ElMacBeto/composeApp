@@ -17,6 +17,21 @@ import androidx.navigation.NavController
 
 @Composable
 fun FavoritesScreen(navController: NavController? = null) {
+
+    /*
+       val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val uiState by produceState<Resource<List<DogModel>>>(
+        initialValue = Resource.loading(),
+        key1 = lifecycle,
+        key2 = homeViewModel
+    ){
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED){
+            homeViewModel?.uiState?.collect{ value = it}
+        }
+    }
+
+     */
+
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
